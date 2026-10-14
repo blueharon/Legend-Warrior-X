@@ -91,3 +91,31 @@ button{touch-action: manipulation;-webkit-tap-highlight-color:transparent}
 .stage:fullscreen .top-left{top:max(8px,env(safe-area-inset-top));left:max(8px,env(safe-area-inset-left))}
 .stage:fullscreen .bottom-hint{display:flex}
 @media(max-width:580px){.topbuttons{flex-direction:column}.topbuttons button{white-space:nowrap}}
+
+/* Keep touch controls visible on touchscreens even when the game is not fullscreen. */
+@media (pointer: coarse) {
+  .mobile-pad {
+    display: flex !important;
+    position: absolute;
+    z-index: 20;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: max(10px, env(safe-area-inset-left));
+    right: max(10px, env(safe-area-inset-right));
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .mobile-pad > div { pointer-events: auto; }
+  .mobile-pad .move-pad { display: grid; grid-template-columns: repeat(3, 42px); grid-template-rows: repeat(3, 42px); gap: 3px; }
+  .mobile-pad .action-pad { display: grid; grid-template-columns: repeat(2, minmax(43px, 1fr)); gap: 5px; max-width: 154px; }
+  .mobile-pad .move-pad button { width: 42px; height: 42px; padding: 0; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .mobile-pad .action-pad button { width: auto; min-width: 0; height: 37px; padding: 0 5px; font-size: 9px; letter-spacing: 0; touch-action: manipulation; }
+}
+@media (pointer: coarse) and (orientation: landscape) {
+  .mobile-pad { bottom: max(8px, env(safe-area-inset-bottom)); }
+  .mobile-pad .move-pad { grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(3, 38px); }
+  .mobile-pad .move-pad button { width: 38px; height: 38px; }
+  .mobile-pad .action-pad { grid-template-columns: repeat(4, minmax(42px, 1fr)); max-width: 300px; gap: 4px; }
+  .mobile-pad .action-pad button { height: 32px; font-size: 8px; padding: 0 4px; }
+}
